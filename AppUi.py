@@ -60,7 +60,7 @@ def get_env(key, default=""):
     """Get environment variable from Streamlit secrets or .env"""
     if hasattr(st, 'secrets') and key in st.secrets:
         return st.secrets[key]
-    return get_env(key, default)
+    return os.getenv(key, default)
 
 # Page configuration
 st.set_page_config(
