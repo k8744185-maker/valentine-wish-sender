@@ -1,14 +1,6 @@
 import streamlit as st
-try:
-    import gspread
-    from oauth2client.service_account import ServiceAccountCredentials
-    GSPREAD_AVAILABLE = True
-    _gspread_import_error = None
-except Exception as _e:
-    gspread = None
-    ServiceAccountCredentials = None
-    GSPREAD_AVAILABLE = False
-    _gspread_import_error = _e
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -68,7 +60,7 @@ def get_env(key, default=""):
     """Get environment variable from Streamlit secrets or .env"""
     if hasattr(st, 'secrets') and key in st.secrets:
         return st.secrets[key]
-    return os.getenv(key, default)
+    return get_env(key, default)
 
 # Page configuration
 st.set_page_config(
