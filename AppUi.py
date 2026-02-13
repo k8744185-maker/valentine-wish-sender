@@ -1,6 +1,14 @@
 import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+try:
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+    GSPREAD_AVAILABLE = True
+    _gspread_import_error = None
+except Exception as _e:
+    gspread = None
+    ServiceAccountCredentials = None
+    GSPREAD_AVAILABLE = False
+    _gspread_import_error = _e
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
